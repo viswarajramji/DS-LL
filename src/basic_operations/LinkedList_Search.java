@@ -2,7 +2,7 @@ package basic_operations;
 
 import java.util.Scanner;
 
-public class LinkedList_Len {
+public class LinkedList_Search {
 	static Node head = null;
 	static Node tail = null;
 	static Node temp = null;
@@ -59,27 +59,25 @@ public class LinkedList_Len {
 		}
 	}
 
-	static void find_length() {
-		temp = head;
-		int cnt = 0;
-		while (temp != null) {
-			cnt++;
-			temp=temp.next;
-		}
-		System.out.println("total count:"+cnt);
-	}
-
 	static int find_length_rec(Node temp) {
 		if (temp == null)
 			return 0;
 		return 1 + find_length_rec(temp.next);
 	}
 
+	static int find_values_index(int val, Node temp, int index) {
+		if (temp == null)
+			return -1;
+		if (temp.data == val)
+			return index;
+		return find_values_index(val, temp.next, index + 1);
+	}
+
 	public static void main(String[] args) {
 		// perform basic operations
 		Scanner scan = new Scanner(System.in);
 		do {
-			System.out.println("Enter options: 1-> insert 2> print 3-> exit 4-> find_len 5-> recursion");
+			System.out.println("Enter options: 1-> insert 2> print 3-> exit 4-> find_len");
 			int option = scan.nextInt();
 			switch (option) {
 			case 1:
@@ -93,12 +91,14 @@ public class LinkedList_Len {
 			case 3:
 				System.exit(0);
 			case 4:
-				find_length();
-				break;
-			case 5:
-				temp = head;
-				int cnt = find_length_rec(temp);
-				System.out.println("total count:"+cnt);
+				System.out.println("Enter the value to be searched : ");
+				int value = scan.nextInt();
+				int index = find_values_index(value, head, 0);
+				if (index < 0) {
+					System.out.println("Not found");
+				} else
+					System.out.println("Element found @ index-" + index);
+
 			}
 		} while (true);
 	}
