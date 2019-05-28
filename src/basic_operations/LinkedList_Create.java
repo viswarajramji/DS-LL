@@ -37,11 +37,34 @@ public class LinkedList_Create {
 		}
 	}
 
+	static void delete_operations(int val) {
+		boolean flag = false;
+		temp = head;
+		if (temp.data == val) {
+			head = head.next;
+			flag = true;
+		} else {
+			while (temp.next != null) {
+				if (temp.next.data == val) {
+					temp.next = temp.next.next;
+					flag = true;
+					break;
+				}
+				temp = temp.next;
+			}
+		}
+		if (flag) {
+			System.out.println("Number removed");
+		} else {
+			System.out.println("Number not found");
+		}
+	}
+
 	public static void main(String[] args) {
 		// perform basic operations
 		Scanner scan = new Scanner(System.in);
 		do {
-			System.out.println("Enter options: 1-> insert 2> print 3-> exit");
+			System.out.println("Enter options: 1-> insert 2> print 3-> exit 4-> delete operations");
 			int option = scan.nextInt();
 			switch (option) {
 			case 1:
@@ -54,6 +77,11 @@ public class LinkedList_Create {
 				break;
 			case 3:
 				System.exit(0);
+			case 4:
+				System.out.println("Enter the values");
+				val = scan.nextInt();
+				delete_operations(val);
+				break;
 			}
 		} while (true);
 	}
